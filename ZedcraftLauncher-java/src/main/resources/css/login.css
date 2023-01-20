@@ -1,0 +1,72 @@
+.login-card {
+-fx-background-color: #DFF1B7;
+-fx-translate-x: 450;
+}
+.login-title{
+-fx-border-width: 5 0 1 0;
+-fx-translate-x: 270;
+}
+.login-input{
+-fx-translate-x: 190;
+}
+.login-log-btn{
+-fx-translate-x: 190;
+-fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color:
+        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
+        #9d4024,
+        #d86e3a,
+        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+}
+.login-with-label{
+-fx-translate-x: 120;
+}
+.ms-login-btn{
+-fx-translate-x: 190;
+-fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color:
+        #BBCB96;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+}
+.bg-image{
+-fx-background-image: url("/images/bg.jpg");
+-fx-background-position: center center;
+-fx-background-repeat: stretch;
+}
+.login-with-label{
+-fx-translate-x: 190;
+}
+.login-separator{
+-fx-translate-x: 190;
+}
+.login-mode-chk
+{
+-fx-translate-x: 5;
+}
+
+.login-mode-chk {
+    -fx-text-fill: rgb(20, 25, 25);
+}
+
+.login-mode-chk .box {
+    -fx-border-width: 0;
+    -fx-border-radius: 10px;
+    -fx-background-color: rgb(220, 225, 225);
+}
+
+.login-mode-chk:selected .box {
+    -fx-background-color: #98BB6D;
+}
+
+.login-mode-chk:selected .box .mark {
+    visibility: hidden;
+}
