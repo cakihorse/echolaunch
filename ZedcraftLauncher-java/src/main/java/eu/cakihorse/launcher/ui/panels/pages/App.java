@@ -6,19 +6,19 @@ import eu.cakihorse.launcher.ui.panel.IPanel;
 import eu.cakihorse.launcher.ui.panel.Panel;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import eu.cakihorse.launcher.ui.panels.pages.content.Settings;
 import fr.theshark34.openlauncherlib.util.Saver;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.TextAlignment;
+import javafx.scene.layout.*;
+import javafx.scene.text.*;
 
 public class App extends Panel {
     GridPane sidemenu = new GridPane();
@@ -53,8 +53,8 @@ public class App extends Panel {
         this.layout.getColumnConstraints().addAll(columnConstraints, new ColumnConstraints());
 
         // Side menu
-        this.layout.add(sidemenu, 0, 1);
-        sidemenu.getStyleClass().add("sidemenu");
+        //this.layout.add(sidemenu, 0, 1);
+        //sidemenu.getStyleClass().add("sidemenu");
         setCenterH(sidemenu);
         setCenterV(sidemenu);
         setBottom(sidemenu);
@@ -77,11 +77,77 @@ public class App extends Panel {
          */
         // Titre
 
+        //create buttons
+        Button quit = new Button("Deconnexion");
+        Button settings = new Button("Paramètres");
+        Button play = new Button("Jouer !");
+        //create a Hbox
+        HBox topPane = new HBox();
+        topPane.getChildren().addAll(quit, settings, play);
+        topPane.getStyleClass().add("Hbox");
+        //confog hbox
+        topPane.setSpacing(10);
+        topPane.setPadding(new Insets(15, 20, 10, 10));
+        GridPane.setHgrow(topPane, Priority.ALWAYS);
+        //GridPane.setConstraints(topPane, 0, 1, 1, 1);
+        GridPane.setHalignment(topPane, HPos.CENTER);
+        topPane.setMaxHeight(10);
+        topPane.setTranslateY(-310);
+
+        
+        //add Hbox to layout
+        this.layout.getChildren().add(topPane);
+        
+        
+
+        //config buttons
+        //play btnplay
+        play.getStyleClass().clear();
+        play.getStyleClass().add("btn");
+
+        play.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.GAMEPAD));
+        setCanTakeAllSize(play);
+        setTop(play);
+        play.setOnMouseClicked(e -> setPage(null, play));
+
+        //config btn
+
+        settings.getStyleClass().clear();
+        settings.getStyleClass().add("btn");
+        settings.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.GEARS));
+        setCanTakeAllSize(settings);
+        setTop(settings);
+        settings.setOnMouseClicked(e -> setPage(new Settings(), settings));
+
+        //log-out btn
+        FontAwesomeIconView logoutIcon = new FontAwesomeIconView(FontAwesomeIcon.SIGN_OUT);
+        logoutIcon.getStyleClass().add("logout-icon");
+        setCanTakeAllSize(quit);
+        setCenterV(quit);
+        setRight(quit);
+        quit.getStyleClass().clear();
+        quit.getStyleClass().add("btn");
+        quit.setGraphic(logoutIcon);
+        quit.setOnMouseClicked(e -> {
+            saver.remove("accessToken");
+            saver.remove("clientToken");
+            saver.remove("msAccessToken");
+            saver.remove("msRefreshToken");
+            saver.remove("offline-username");
+            saver.save();
+            Launcher.getInstance().setAuthInfos(null);
+            this.panelManager.showPanel(new Login());
+        });
+
+
+
 
         // Navigation
         homeBtn = new Button("");
-        homeBtn.getStyleClass().add("sidemenu-nav-btn");
-        homeBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.HOME));
+        homeBtn.getStyleClass().clear();
+        homeBtn.getStyleClass().add("home-btn");
+        homeBtn.setMinSize(54, 45);
+        //homeBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.HOME));
         setCanTakeAllSize(homeBtn);
         setTop(homeBtn);
         homeBtn.setTranslateY(15d);
@@ -89,15 +155,14 @@ public class App extends Panel {
         homeBtn.setOnMouseClicked(e -> setPage(null, homeBtn));
 
         settingsBtn = new Button("");
-        settingsBtn.getStyleClass().add("sidemenu-nav-btn");
-        settingsBtn.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.GEARS));
-        setCanTakeAllSize(settingsBtn);
-        setTop(settingsBtn);
-        settingsBtn.setTranslateY(15d);
-        settingsBtn.setTranslateX(960d);
-        settingsBtn.setOnMouseClicked(e -> setPage(null, settingsBtn));
 
-        sidemenu.getChildren().addAll(homeBtn, settingsBtn);
+
+
+        Separator separator = new Separator(Orientation.VERTICAL);
+
+
+
+
 
         // Pseudo + avatar
         GridPane userPane = new GridPane();
@@ -133,27 +198,14 @@ public class App extends Panel {
         setCanTakeAllWidth(usernameLabel);
         userPane.getChildren().add(usernameLabel);
 
-        Button logoutBtn = new Button();
-        FontAwesomeIconView logoutIcon = new FontAwesomeIconView(FontAwesomeIcon.SIGN_OUT);
-        logoutIcon.getStyleClass().add("logout-icon");
-        setCanTakeAllSize(logoutBtn);
-        setCenterV(logoutBtn);
-        setRight(logoutBtn);
-        logoutBtn.getStyleClass().add("logout-btn");
-        logoutBtn.setGraphic(logoutIcon);
-        logoutBtn.setOnMouseClicked(e -> {
-            saver.remove("accessToken");
-            saver.remove("clientToken");
-            saver.remove("msAccessToken");
-            saver.remove("msRefreshToken");
-            saver.remove("offline-username");
-            saver.save();
-            Launcher.getInstance().setAuthInfos(null);
-            this.panelManager.showPanel(new Login());
-        });
-        userPane.getChildren().add(logoutBtn);
+        Separator sepa = new Separator(Orientation.VERTICAL);
 
-        sidemenu.getChildren().add(userPane);
+
+        Button logoutBtn = new Button();
+
+
+
+        this.layout.getChildren().add(userPane);
 
     }
 
@@ -178,7 +230,9 @@ public class App extends Panel {
                         this.getStylesheetPath(),
                         panel.getStylesheetPath()
                 );
+
             }
+
             panel.init(this.panelManager);
             panel.onShow();
         }

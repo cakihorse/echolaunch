@@ -1,60 +1,72 @@
 .login-card {
 -fx-background-color: #DFF1B7;
+
 -fx-translate-x: 450;
 }
 .login-title{
 -fx-border-width: 5 0 1 0;
--fx-translate-x: 270;
+-fx-color: white;
+
 }
 .login-input{
 -fx-translate-x: 190;
 }
 .login-log-btn{
--fx-translate-x: 190;
+-fx-translate-x: 450;
 -fx-padding: 8 15 15 15;
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-radius: 8;
     -fx-background-color:
-        linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
-        #9d4024,
-        #d86e3a,
-        radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);
+        #5C415D;
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
-    -fx-font-size: 1.1em;
+    -fx-font-size: 1.5em;
+    -fx-font-color : black;
 }
+.login-log-btn:hover{
+-fx-background-color: #543c55;
+}
+
 .login-with-label{
--fx-translate-x: 120;
+-fx-translate-x: 450;
+-fx-translate-y: 110;
 }
 .ms-login-btn{
--fx-translate-x: 190;
+-fx-translate-x: 450;
 -fx-padding: 8 15 15 15;
     -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
     -fx-background-radius: 8;
     -fx-background-color:
-        #BBCB96;
+        #5C415D;
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
     -fx-font-weight: bold;
     -fx-font-size: 1.1em;
+
+}
+.ms-login-btn:hover{
+-fx-background-color : #543c55;
 }
 .bg-image{
--fx-background-image: url("/images/bg.jpg");
+-fx-background-image: url("/images/bg.png");
 -fx-background-position: center center;
 -fx-background-repeat: stretch;
+-fx-background-size: cover;
 }
 .login-with-label{
 -fx-translate-x: 190;
+
 }
 .login-separator{
--fx-translate-x: 190;
+-fx-translate-x: 450;
+-fx-translate-y: 110;
 }
 .login-mode-chk
 {
--fx-translate-x: 5;
+-fx-translate-x: 450;
 }
 
 .login-mode-chk {
-    -fx-text-fill: rgb(20, 25, 25);
+    -fx-text-fill: white;
 }
 
 .login-mode-chk .box {
@@ -64,9 +76,32 @@
 }
 
 .login-mode-chk:selected .box {
-    -fx-background-color: #98BB6D;
+    -fx-background-color: #3B3939;
 }
 
 .login-mode-chk:selected .box .mark {
     visibility: hidden;
 }
+.logo-ms{
+-fx-background-size: cover;
+}
+
+.login-input{
+-fx-translate-x: 450;
+-fx-color: transparent;
+-fx-opacity: 9.0;
+  -fx-border-color: white;
+  -fx-border-width: 0 0 1 0;
+  -fx-background-color: transparent;
+  -fx-text-fill: white;
+
+}
+
+.login-title{
+
+}
+
+.login-error{
+-fx-text-fill: red;
+}
+

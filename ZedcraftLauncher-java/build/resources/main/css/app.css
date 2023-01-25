@@ -1,5 +1,6 @@
 .bg-image{
--fx-background-image: url("/images/bg.jpg");
+-fx-background-image: url("/images/bg.png");
+-fx-background-size: cover;
 }
 .sidemenu-nav-btn{
   width: 800px;
@@ -23,6 +24,9 @@
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-text-fill: #395306;
 }
+.logout-btn:hover{
+-fx-background-color: gray;
+}
 .sidemenu-nav-btn{
 -fx-background-color:
         linear-gradient(#f0ff35, #a9ff00),
@@ -31,4 +35,45 @@
     -fx-background-insets: 0, 1;
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-text-fill: #395306;
+}
+
+
+.home-btn{
+-fx-background-image: url("/images/logo-acceuil.png");
+-fx-background-size: cover;
+}
+
+.menu
+{
+-fx-alignment: center;
+-fx-background-color: #3B3939;
+
+}
+.menu .label{
+-fx-text-fill: white;
+}
+
+.username-label{
+-fx-text-fill: white;
+}
+
+.Hbox{
+
+-fx-background-color: #3B3939;
+
+}
+.btn{
+-fx-translate-x: 440;
+-fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color:
+        #5C415D;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size: 1em;
+    -fx-font-color : black;
+}
+.btn:hover{
+-fx-background-color: #543c55;
 }

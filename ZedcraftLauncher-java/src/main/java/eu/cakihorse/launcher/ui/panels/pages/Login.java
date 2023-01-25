@@ -20,6 +20,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -30,7 +32,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class Login extends Panel {
-    GridPane loginCard = new GridPane();
+   // GridPane card = new GridPane();
 
     Saver saver = Launcher.getInstance().getSaver();
     AtomicBoolean offlineAuth = new AtomicBoolean(false);
@@ -41,7 +43,7 @@ public class Login extends Panel {
     Label passwordErrorLabel = new Label();
     Button btnLogin = new Button("Connexion");
     Button msLoginBtn = new Button();
-    CheckBox authModeChk = new CheckBox("Version sans mot de passe");
+    CheckBox authModeChk = new CheckBox("Crack");
 
     @Override
     public String getName() {
@@ -72,27 +74,48 @@ public class Login extends Panel {
         setCanTakeAllSize(bgImage);
         bgImage.getStyleClass().add("bg-image");
         this.layout.add(bgImage, 0, 0);
-        this.layout.add(loginCard, 0, 0);
+        //this.layout.add(loginCard, 0, 0);
         // Login card
         setCanTakeAllSize(this.layout);
-        loginCard.getStyleClass().add("login-card");
+       // loginCard.getStyleClass().add("login-card");
+
+
+
 //setLeft(loginCard);
 
         setCanTakeAllWidth(this.layout);
 
 
+
+
+
         /*
          * Login sidebar
          */
-        Label title = new Label("Zedcraft");
-        title.setFont(Font.font("Consolas", FontWeight.BOLD, FontPosture.REGULAR, 30f));
+        Label title = new Label("Connexion");
+        title.setFont(Font.font("Consolas", FontWeight.LIGHT, FontPosture.REGULAR, 30f));
+
         title.getStyleClass().add("login-title");
         setCenterH(title);
         setCanTakeAllSize(title);
-        setTop(title);
+        title.setTranslateY(-120);
+        title.setTranslateX(520);
+        title.setStyle("-fx-text-fill: white;");
         title.setTextAlignment(TextAlignment.CENTER);
-        title.setTranslateY(30d);
-        loginCard.getChildren().add(title);
+
+
+        //Login Card
+        /*
+        Rectangle rectangle = new Rectangle();
+
+        rectangle.setWidth(400);
+        rectangle.setHeight(500);
+        rectangle.setFill(Color.DARKSLATEGRAY);
+        rectangle.setTranslateX(400);
+
+        rectangle.setArcHeight(50);
+        rectangle.setArcWidth(50);
+**/
 
         // Username/E-Mail
         setCanTakeAllSize(userField);
@@ -101,6 +124,7 @@ public class Login extends Panel {
         userField.setPromptText("Adresse E-Mail");
         userField.setMaxWidth(300);
         userField.setTranslateY(-70d);
+        userField.setTranslateX(900);
         userField.getStyleClass().add("login-input");
         userField.textProperty().addListener((_a, oldValue, newValue) -> {
             this.updateLoginBtnState(userField, userErrorLabel);
@@ -112,6 +136,7 @@ public class Login extends Panel {
         setCenterH(userErrorLabel);
         userErrorLabel.getStyleClass().add("login-error");
         userErrorLabel.setTranslateY(-45d);
+
         userErrorLabel.setMaxWidth(280);
         userErrorLabel.setTextAlignment(TextAlignment.LEFT);
 
@@ -121,7 +146,8 @@ public class Login extends Panel {
         setCenterH(passwordField);
         passwordField.setPromptText("Mot de passe");
         passwordField.setMaxWidth(300);
-        passwordField.setTranslateY(-15d);
+        //passwordField.setTranslateY(-15d);
+        //passwordField.setTranslateX(900);
         passwordField.getStyleClass().add("login-input");
         passwordField.textProperty().addListener((_a, oldValue, newValue) -> {
             this.updateLoginBtnState(passwordField, passwordErrorLabel);
@@ -144,9 +170,32 @@ public class Login extends Panel {
         btnLogin.setDisable(true);
         btnLogin.setMaxWidth(300);
         btnLogin.setTranslateY(40d);
+        btnLogin.setTranslateX(900);
         btnLogin.getStyleClass().add("login-log-btn");
         btnLogin.setOnMouseClicked(e -> this.authenticate(userField.getText(), passwordField.getText()));
 
+
+        setCanTakeAllSize(authModeChk);
+        setCenterV(authModeChk);
+        setCenterH(authModeChk);
+        authModeChk.setTranslateY(90d);
+        authModeChk.setTranslateX(5000);
+
+        authModeChk.getStyleClass().add("login-mode-chk");
+        authModeChk.setMaxWidth(300);
+
+        authModeChk.selectedProperty().addListener((e, old, newValue) -> {
+            offlineAuth.set(newValue);
+            passwordField.setDisable(newValue);
+            if (newValue) {
+                userField.setPromptText("Pseudo");
+                passwordField.clear();
+            } else {
+                userField.setPromptText("Adresse E-Mail");
+            }
+
+            btnLogin.setDisable(!(userField.getText().length() > 0 && (offlineAuth.get() || passwordField.getText().length() > 0)));
+        });
 
         //setCanTakeAllSize(authModeChk);
         //setCenterV(authModeChk);
@@ -165,20 +214,13 @@ public class Login extends Panel {
         separator.setMaxWidth(300);
         separator.setTranslateY(90d);
 
-        // Login with label
-        Label loginWithLabel = new Label("Ou avec : ".toUpperCase());
-        setCanTakeAllSize(loginWithLabel);
-        setCenterV(loginWithLabel);
-        setCenterH(loginWithLabel);
-        loginWithLabel.setFont(Font.font(loginWithLabel.getFont().getFamily(), FontWeight.BOLD, FontPosture.REGULAR, 14d));
-        loginWithLabel.getStyleClass().add("login-with-label");
-        loginWithLabel.setTranslateY(110d);
-        loginWithLabel.setMaxWidth(280d);
+
 
         // Microsoft login button
-        ImageView view = new ImageView(new Image("images/logo-microsoft-scaled.jpg"));
+        ImageView view = new ImageView(new Image("images/ms-logo.png"));
         view.setPreserveRatio(true);
         view.setFitHeight(30d);
+        view.getStyleClass().add("logo-ms");
         setCanTakeAllSize(msLoginBtn);
         setCenterH(msLoginBtn);
         setCenterV(msLoginBtn);
@@ -188,10 +230,12 @@ public class Login extends Panel {
         msLoginBtn.setGraphic(view);
         msLoginBtn.setOnMouseClicked(e -> this.authenticateMS());
 
-        loginCard.getChildren().addAll(userField, userErrorLabel, passwordField, passwordErrorLabel, authModeChk, btnLogin, separator, loginWithLabel, msLoginBtn);
+        this.layout.getChildren().addAll(title,userField, userErrorLabel, passwordField, passwordErrorLabel, authModeChk, btnLogin, separator, msLoginBtn);
         setCanTakeAllSize(authModeChk);
         setCenterV(authModeChk);
         setCenterH(authModeChk);
+        authModeChk.setTranslateY(90d);
+        authModeChk.setTranslateX(90d);
         authModeChk.getStyleClass().add("login-mode-chk");
         authModeChk.setMaxWidth(300);
         authModeChk.setTranslateY(85d);
