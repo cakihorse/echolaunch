@@ -1,0 +1,48 @@
+.box-pane {
+    -fx-background-color: #eee;
+}
+
+.play-btn{
+-fx-translate-x: 530;
+-fx-translate-y: 500;
+-fx-padding: 8 15 15 15;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color:
+        #5C415D;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size: 1.5em;
+
+    -fx-text-fill: Black;
+}
+.play-btn:hover{
+-fx-background-color: #543c55;
+}
+
+.download-progress {
+    -fx-max-width: 1000;
+    -fx-pref-width: 1000;
+    -fx-min-width: 100;
+    -fx-min-height: 10px;
+    -fx-max-height: 10px;
+}
+
+.download-progress > .bar {
+    -fx-background-color: #85AE51;
+    -fx-background-insets: 0;
+    -fx-background-radius: 30px;
+}
+
+.download-progress > .track {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 30px;
+}
+
+.download-status {
+    -fx-text-alignment: center;
+    -fx-text-fill: white;
+    -fx-translate-x: 530;
+    -fx-translate-y: 300;
+}

@@ -6,6 +6,8 @@ import eu.cakihorse.launcher.ui.panel.IPanel;
 import eu.cakihorse.launcher.ui.panel.Panel;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import eu.cakihorse.launcher.ui.panels.pages.content.ContentPanel;
+import eu.cakihorse.launcher.ui.panels.pages.content.Home;
 import eu.cakihorse.launcher.ui.panels.pages.content.Settings;
 import fr.theshark34.openlauncherlib.util.Saver;
 import javafx.event.ActionEvent;
@@ -25,6 +27,7 @@ public class App extends Panel {
     GridPane navContent = new GridPane();
 
     Node activeLink = null;
+    ContentPanel currentPage = null;
 
     Button homeBtn, settingsBtn;
 
@@ -108,7 +111,7 @@ public class App extends Panel {
         play.setGraphic(new FontAwesomeIconView(FontAwesomeIcon.GAMEPAD));
         setCanTakeAllSize(play);
         setTop(play);
-        play.setOnMouseClicked(e -> setPage(null, play));
+        play.setOnMouseClicked(e -> setPage(new Home(), play));
 
         //config btn
 
@@ -129,6 +132,9 @@ public class App extends Panel {
         quit.getStyleClass().add("btn");
         quit.setGraphic(logoutIcon);
         quit.setOnMouseClicked(e -> {
+            if(currentPage instanceof  Home &&((Home) currentPage).isDownloading){
+                return;
+            }
             saver.remove("accessToken");
             saver.remove("clientToken");
             saver.remove("msAccessToken");
@@ -212,10 +218,13 @@ public class App extends Panel {
     @Override
     public void onShow() {
         super.onShow();
-        setPage(null, homeBtn);
+        setPage(new Home(), homeBtn);
     }
 
-    public void setPage(IPanel panel, Node navButton) {
+    public void setPage(ContentPanel panel, Node navButton) {
+        if (currentPage instanceof  Home && ((Home) currentPage).isDownloading){
+            return;
+        }
         if (activeLink != null)
             activeLink.getStyleClass().remove("active");
         activeLink = navButton;
@@ -224,6 +233,7 @@ public class App extends Panel {
         this.navContent.getChildren().clear();
         if (panel != null) {
             this.navContent.getChildren().add(panel.getLayout());
+            currentPage = panel;
             if (panel.getStylesheetPath() != null) {
                 this.panelManager.getStage().getScene().getStylesheets().clear();
                 this.panelManager.getStage().getScene().getStylesheets().addAll(

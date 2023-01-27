@@ -32,6 +32,7 @@ public class PanelManager {
         this.stage.setHeight(720);
         this.stage.centerOnScreen();
         this.stage.getIcons().add(new Image("images/icon.png"));
+        this.stage.setResizable(false);
 
 
 
