@@ -1,4 +1,4 @@
-# ZedcraftLauncher-new
+# Echocraft-new
 Hello that's the repository of the laucnher for ECHOCRAFT
 You can find here images of the launcher
 
