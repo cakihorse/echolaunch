@@ -11,3 +11,5 @@ You can find here images of the launcher
 
 If you want more infos about the code contact me with discord or email :)
 (the microsoft authentication is in devlopement, there are maybe bugs)
+
+Venez mp discord
